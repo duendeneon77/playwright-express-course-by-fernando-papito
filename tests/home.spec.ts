@@ -1,6 +1,7 @@
-import { test, expect } from '@playwright/test'
+import { test } from '@playwright/test'
 import { TaskModel } from './fixtures/task.model'
 import { deleteTaskByHelper,postTask } from './support/helpers'
+import { TasksPage } from './support/pages/tasks'
 
 test('deve poder cadastrar uma nova tarefa', async ({ page, request }) => {
     const task: TaskModel = {
@@ -11,15 +12,13 @@ test('deve poder cadastrar uma nova tarefa', async ({ page, request }) => {
     await deleteTaskByHelper(request, task.name)
 
 
-    await page.goto('http://localhost:8080')
 
-    const inputTaskName = page.locator('input[class*=InputNewTask]')
-    await inputTaskName.fill(task.name)
+    const tasksPage: TasksPage = new TasksPage(page)
+    
+    await tasksPage.go()
+    await tasksPage.create(task)
 
-    await page.click('css=button >> text=Create')
-
-    const target = page.locator(`.task-item p:text-is("${task.name}")`)
-    await expect(target).toBeVisible()
+    await tasksPage.shouldHaveText(task.name)
 })
 
 test('não deve permitir tarefa duplicada', async({page, request})=>{
@@ -33,15 +32,11 @@ test('não deve permitir tarefa duplicada', async({page, request})=>{
     await deleteTaskByHelper(request, task.name)
 
     await postTask(request,task)
+
+    const tasksPage: TasksPage = new TasksPage(page)
     
-    await page.goto('http://localhost:8080')
+    await tasksPage.go()
+    await tasksPage.create(task)
+    await tasksPage.alertHaveText('Task already exists!')
 
-    const inputTaskName = page.locator('input[class*=InputNewTask]')
-    await inputTaskName.fill(task.name)
-
-    await page.click('css=button >> text=Create')
-
-
-    const target = page.locator('.swal2-html-container')
-    await expect(target).toHaveText('Task already exists!')
 })
