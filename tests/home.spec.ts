@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-
+import { TaskModel } from './fixtures/task.model'
 
 test('deve poder cadastrar uma nova tarefa', async ({ page, request }) => {
     const taskName = 'Ler um livro de TypeScript'
@@ -25,7 +25,7 @@ test('deve poder cadastrar uma nova tarefa', async ({ page, request }) => {
 
 test('não deve permitir tarefa duplicada', async({page, request})=>{
     
-    const task = {
+    const task:TaskModel = {
         name:'Tarefa a duplicar',
         is_done:false
     }
