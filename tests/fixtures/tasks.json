@@ -1,0 +1,16 @@
+{
+    "success":{
+        "name": "Ler um livro de Typescrypt",
+        "is_done":false
+    },
+    "duplicate":{
+        "name":"Tarefa a duplicar",
+        "is_done":false
+
+    },
+    "required":{
+        "name":"",
+        "is_done":false
+
+    }
+}
