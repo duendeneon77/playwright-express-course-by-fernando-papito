@@ -12,5 +12,9 @@
         "name":"",
         "is_done":false
 
+    },
+    "update":{
+        "name":"Pagar a fatura do cartão de crédito",
+        "is_done":false
     }
 }
