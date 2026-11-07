@@ -16,5 +16,9 @@
     "update":{
         "name":"Pagar a fatura do cartão de crédito",
         "is_done":false
+    },
+    "delete":{
+        "name": "Ir para casa do colega",
+        "is_done": false
     }
 }

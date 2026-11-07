@@ -25,10 +25,20 @@ export class TasksPage{
         const target = this.page.locator(`xpath=//p[text()="${taskName}"]/..//button[contains(@class, "Toggle")]`)
         await target.click()
     }
+    async remove(taskName: string){
+        const target = this.page.locator(`xpath=//p[text()="${taskName}"]/..//button[contains(@class, "Delete")]`)
+        await target.click()
+    }
+
 
     async shouldHaveText(taskName:string){
         const target = this.page.locator(`.task-item p:text-is("${taskName}")`)
         await expect(target).toBeVisible()
+    }
+
+    async shouldNotExist(taskName:string){
+        const target = this.page.locator(`.task-item p:text-is("${taskName}")`)
+        await expect(target).not.toBeVisible()
     }
 
     async alertHaveText(text:string){
